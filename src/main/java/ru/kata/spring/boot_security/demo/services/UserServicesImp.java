@@ -28,38 +28,37 @@ public class UserServicesImp implements UserServices {
     }
 
     @Override
+    public User getUserById(int id) {
+        return userDao.getUserByID(id);
+    }
+
+    @Override
     public User getEmail(String email) {
         return userDao.getEmail(email);
     }
 
 
     @Override
-    public void update(int id, User user) {
-        user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
-        setRolesForUser(user);
-        userDao.update(user);
-    }
-
-    @Override
-    public User save(User user) {
-        user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
-        setRolesForUser(user);
-        userDao.save(user);
-        return user;
-    }
-
-    @Override
+    @Transactional
     public void delete(int id) {
         userDao.delete(id);
     }
 
-    public void setRolesForUser(User user) {
+    @Override
+    @Transactional
+    public void update(int id, User user) {
+        user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
         user.setRoles(user.getRoles().stream().map(role -> roleServices.getName(role.getName())).collect(Collectors.toSet()));
+        userDao.update(user);
     }
 
     @Override
-    public User getUserById(int id) {
-        return userDao.getUserByID(id);
+    @Transactional
+    public User save(User user) {
+        user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
+        user.setRoles(user.getRoles().stream().map(role -> roleServices.getName(role.getName())).collect(Collectors.toSet()));
+        userDao.save(user);
+        return user;
     }
 
 }

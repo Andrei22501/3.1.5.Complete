@@ -3,6 +3,7 @@ package ru.kata.spring.boot_security.demo.dao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import ru.kata.spring.boot_security.demo.model.Role;
+import ru.kata.spring.boot_security.demo.model.User;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -22,9 +23,8 @@ public class RoleDaoImp implements RoleDao {
 
     @Override
     public List<Role> listRole() {
-        String e = "from Role";
-        TypedQuery<Role> query = entityManager.createQuery(e, Role.class);
-        return query.getResultList();
+        return entityManager.createQuery("select u from Role u", Role.class)
+                .getResultList();
     }
 
 
@@ -37,7 +37,7 @@ public class RoleDaoImp implements RoleDao {
 
     @Override
     public Role getName(String name) {
-        return entityManager.createQuery("from Role where name = ?1", Role.class).setParameter(1, name).getSingleResult();
+        return entityManager.createQuery("select u from Role u where u.name = ?1", Role.class).setParameter(1, name).getSingleResult();
     }
 
     @Override

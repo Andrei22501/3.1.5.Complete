@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.ModelAndView;
 import ru.kata.spring.boot_security.demo.model.User;
 import ru.kata.spring.boot_security.demo.services.UserServices;
 
@@ -20,10 +19,10 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api")
-public class AdminController {
+public class RestAdminController {
     private final UserServices userServices;
 
-    public AdminController(UserServices userServices) {
+    public RestAdminController(UserServices userServices) {
         this.userServices = userServices;
     }
 
@@ -66,7 +65,7 @@ public class AdminController {
 }
 
 @Controller
-class AdminPageController {
+class AdminController {
     @GetMapping("/admin")
     public String admin() {
         return "/admin";

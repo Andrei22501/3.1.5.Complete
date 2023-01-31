@@ -1,7 +1,5 @@
 package ru.kata.spring.boot_security.demo.model;
 
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -31,6 +29,9 @@ public class User implements UserDetails {
     @ManyToMany(fetch = FetchType.LAZY)
     private Set<Role> roles = new HashSet<>();
 
+    public User() {
+    }
+
     public User(String name, String lastname, int age, String email, String password, Set<Role> roles) {
         this.name = name;
         this.lastname = lastname;
@@ -38,10 +39,6 @@ public class User implements UserDetails {
         this.email = email;
         this.password = password;
         this.roles = roles;
-    }
-
-    public User() {
-
     }
 
     public int getId() {
