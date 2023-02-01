@@ -27,19 +27,18 @@ public class RoleDaoImp implements RoleDao {
                 .getResultList();
     }
 
-
     @Override
     public Role getRoleId(int id) {
         String e = "from Role where id =" + id;
         TypedQuery<Role> query = entityManager.createQuery(e, Role.class);
         return query.getSingleResult();
     }
-
     @Override
     public Role getName(String name) {
-        return entityManager.createQuery("select u from Role u where u.name = ?1", Role.class).setParameter(1, name).getSingleResult();
+        return entityManager.createQuery("select u from Role u where u.name = ?1", Role.class)
+                .setParameter(1, name)
+                .getSingleResult();
     }
-
     @Override
     public void save(Role role) {
         entityManager.persist(role);

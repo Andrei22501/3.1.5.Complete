@@ -6,6 +6,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import javax.persistence.*;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
@@ -27,12 +28,12 @@ public class User implements UserDetails {
     private String password;
 
     @ManyToMany(fetch = FetchType.LAZY)
-    private Set<Role> roles = new HashSet<>();
+    private List<Role> roles;
 
     public User() {
     }
 
-    public User(String name, String lastname, int age, String email, String password, Set<Role> roles) {
+    public User(String name, String lastname, int age, String email, String password, List<Role> roles) {
         this.name = name;
         this.lastname = lastname;
         this.age = age;
@@ -119,11 +120,11 @@ public class User implements UserDetails {
         this.password = password;
     }
 
-    public Set<Role> getRoles() {
+    public List<Role> getRoles() {
         return roles;
     }
 
-    public void setRoles(Set<Role> roles) {
+    public void setRoles(List<Role> roles) {
         this.roles = roles;
     }
 

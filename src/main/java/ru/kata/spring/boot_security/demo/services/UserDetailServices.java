@@ -12,6 +12,7 @@ import ru.kata.spring.boot_security.demo.model.Role;
 import ru.kata.spring.boot_security.demo.model.User;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -22,7 +23,7 @@ public class UserDetailServices implements UserDetailsService {
     public UserDetailServices(UserDao userDao) {
         this.userDao = userDao;
     }
-    private Collection<? extends GrantedAuthority> getRoleForUser(Set<Role> roles) {
+    private Collection<? extends GrantedAuthority> getRoleForUser(List<Role> roles) {
         return roles.stream().map(r -> new SimpleGrantedAuthority(r.getName())).collect(Collectors.toList());
     }
 

@@ -37,7 +37,6 @@ public class UserServicesImp implements UserServices {
         return userDao.getEmail(email);
     }
 
-
     @Override
     @Transactional
     public void delete(int id) {
@@ -48,7 +47,7 @@ public class UserServicesImp implements UserServices {
     @Transactional
     public void update(int id, User user) {
         user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
-        user.setRoles(user.getRoles().stream().map(role -> roleServices.getName(role.getName())).collect(Collectors.toSet()));
+        user.setRoles(user.getRoles().stream().map(role -> roleServices.getName(role.getName())).collect(Collectors.toList()));
         userDao.update(user);
     }
 
@@ -56,7 +55,7 @@ public class UserServicesImp implements UserServices {
     @Transactional
     public User save(User user) {
         user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
-        user.setRoles(user.getRoles().stream().map(role -> roleServices.getName(role.getName())).collect(Collectors.toSet()));
+        user.setRoles(user.getRoles().stream().map(role -> roleServices.getName(role.getName())).collect(Collectors.toList()));
         userDao.save(user);
         return user;
     }

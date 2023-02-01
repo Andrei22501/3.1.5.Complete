@@ -9,9 +9,12 @@ import ru.kata.spring.boot_security.demo.services.UserServices;
 
 import javax.annotation.PostConstruct;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Component
 public class init {
@@ -33,14 +36,14 @@ public class init {
             roleServices.save(admin);
             roleServices.save(user);
 
-            Set<Role> adminRole = new HashSet<>();
-            adminRole.add(admin);
-            adminRole.add(user);
-            Set<Role> userRole = new HashSet<>();
-            userRole.add(user);
-
-            userServices.save(new User("admin", "admin", 21, "admin@gmail.com", "admin", adminRole));
-            userServices.save(new User("user", "user", 24, "user@gmail.com", "user", userRole));
+            User adminAccount = new User();
+            adminAccount.setName("Admin");
+            adminAccount.setLastname("Admin");
+            adminAccount.setAge(21);
+            adminAccount.setEmail("admin@gmail.com");
+            adminAccount.setPassword("admin");
+            adminAccount.setRoles(List.of(admin, user));
+            userServices.save(adminAccount);
         }
     }
 }
